@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Order by Color Code — AutoColorFix</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="header container">
+    <div class="logo">AutoColorFix</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="order-by-color.html">Order by Color Code</a>
+      <a href="booking.html">Booking</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Order by Color Code</h2>
+      <p>Fill the form below with the vehicle color code. We'll confirm availability and ship worldwide.</p>
+
+      <form id="orderForm" class="form" onsubmit="handleOrder(event)">
+        <div class="form-row">
+          <label style="width:100%"><strong>Name</strong><input class="input" name="name" id="name" required></label>
+          <label style="width:100%"><strong>Email</strong><input class="input" type="email" name="email" id="email" required></label>
+        </div>
+
+        <div class="form-row">
+          <label style="width:48%"><strong>Brand & Model</strong><input class="input" name="brand" id="brand" placeholder="e.g. Toyota Yaris" required></label>
+          <label style="width:48%"><strong>Color Code</strong><input class="input" name="color_code" id="color_code" placeholder="e.g. B-1234 or 1J7" required></label>
+        </div>
+
+        <div class="form-row">
+          <label style="width:100%"><strong>Delivery Address</strong><textarea class="input" id="address" name="address" rows="3" required></textarea></label>
+        </div>
+
+        <div class="form-row">
+          <label style="width:48%"><strong>Product</strong>
+            <select id="product" class="input">
+              <option value="touchup_pen">Touch-up Pen — 15ml</option>
+              <option value="aerosol">Aerosol Spray — 400ml</option>
+              <option value="kit">Full Touch-up Kit</option>
+            </select>
+          </label>
+
+          <label style="width:48%"><strong>Quantity</strong><input class="input" id="quantity" type="number" value="1" min="1"></label>
+        </div>
+
+        <div style="margin-top:12px">
+          <button class="btn" type="submit">Proceed to Payment</button>
+        </div>
+      </form>
+
+      <p style="margin-top:12px;color:#6b7280">Payment gateway integration: placeholder in this package. We recommend Stripe for global cards and PayPal for additional options. See README for integration steps.</p>
+    </section>
+
+    <footer class="footer">© AutoColorFix</footer>
+  </main>
+
+  <script src="js/site.js"></script>
+  <script>
+    function handleOrder(e){
+      e.preventDefault();
+      const data = {
+        name:document.getElementById('name').value,
+        email:document.getElementById('email').value,
+        brand:document.getElementById('brand').value,
+        color_code:document.getElementById('color_code').value,
+        address:document.getElementById('address').value,
+        product:document.getElementById('product').value,
+        quantity:document.getElementById('quantity').value
+      };
+      // Send to server endpoint (to be implemented). For now we store in localStorage and show confirmation.
+      localStorage.setItem('autocolor_order', JSON.stringify(data));
+      alert('Order saved locally. Implement server endpoint to process order and payment (see README).');
+      // For payment: redirect to /checkout or open Stripe Checkout session from server.
+    }
+  </script>
+</body>
+</html>
